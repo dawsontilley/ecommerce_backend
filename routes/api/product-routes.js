@@ -48,9 +48,8 @@ router.get('/:id', (req, res) => {
       },
       {
         model: Tag,
-        attributes:['tag_name'],
-        through: ProductTag,
-        as: "tagIds"
+        attributes:['tag_name']
+       
   
       },
     ]
@@ -108,12 +107,13 @@ router.post('/', (req, res) => {
 // update product
 router.put('/:id', (req, res) => {
   // update product data
-  Product.update(req.body, {
+  Product.update({product_name:req.body.product_name},
+     {
     where: {
       id: req.params.id,
     },
-  })
-    .then((product) => {
+  }).then((prodData)=>res.json(prodData));
+   /* .then((product) => {
       // find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
@@ -144,7 +144,7 @@ router.put('/:id', (req, res) => {
     .catch((err) => {
       // console.log(err);
       res.status(400).json(err);
-    });
+    });*/
 });
 
 router.delete('/:id', (req, res) => {
@@ -154,16 +154,8 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
-  .then(prodData =>{
-    if ( !prodData){
-      res.status(404).json({message:'No Product found for this id'});
-      return;
-    }
-    res.json(prodData);
-  })
-  .catch(err=>
-    console.log(err));
-    res.status(500).json(err);
-});
-
+  .then(prodData =>{res.json(prodData);
+  
+  })});
+  
 module.exports = router;
