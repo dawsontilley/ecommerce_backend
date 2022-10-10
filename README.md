@@ -9,5 +9,7 @@ JS using express, sequelize
 
 [Backend Walkthrough](https://youtu.be/KZDAIB3WGIU)
 
+![insomnia](./Capture1.PNG)
+
 ## Credits
 U of T Bootcamp Template, Dawson Tilley
